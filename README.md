@@ -1,6 +1,6 @@
 Ganetto
 ================
-*Galatasaray Network Toolbox*
+*Galatasaray Network Toolbox* v3
 
 * Copyright 2009-10 Vincent Labatut & Günce K. Orman.
 * Copyright 2011-13 Vincent Labatut, Günce K. Orman & Burcu Kantarci. 
