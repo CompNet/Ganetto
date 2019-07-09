@@ -12,44 +12,21 @@ Ganetto is free software: you can redistribute it and/or modify it under the ter
 * GitHub repo: https://github.com/CompNet/Ganetto
 * Contact: Vincent Labatut <vlabatut@gsu.edu.tr>
 
-If you use this source code, please cite reference [L'15].
-
 -----------------------------------------------------------------------
 
 
 # Description
-These scripts implement several measures allowing to compare two community structures, i.e. two partitions of the
-node set of a given graph. They are based on popular measures defined in the field of cluster analysis, namely 
-(see the source code for original bibliographic references):  
-
-* Purity (also known under many other names in the literature, such as percent correct, accuracy, etc.)
-* Rand index and its adjusted version.
-* Normalized mutual information.
-
-The scripts provided here implement (or show how to use existing implementations of) these classic measures,
-and also some modified versions. Those allow to take into account some weight defined for each one of the considered elements
-(in our case: nodes). The goal here is to be able to factor the network topology in these measures, which otherwise 
-completely ignore this essential aspect of community detection (which is natural, since they were originally developped
-to assess cluster analysis results).
-
-The measures were originally implemented in 2012 and the corresponding paper was published in 2015 [L'15].
-I did not publish the source code at this time, because I thought it was quite trivial to implement the measures I had proposed.
-However, in 2016 I realized a few authors cited my work and pointed at the absence of publicly available source code, 
-so I decided to clean it up and put it online. Hopefully, someone will use it! 
+These R scripts are designed to handle various tasks related to the community structure of complex networks: community detection, generation of modular artificial graphs, evaluation of communinity detection results, assessment of various topological measures, generation of plots.  
 
 
 # Organization
-The organization is very simple, all the source code is in folder `src`:
+The organization is very simple, all the source code folders are located directly in the root folder.
 
-* `CommonFunctions.R`: contains some functions used to process some of the measures.
-* `NormalizedMutualInformation.R`, `PurityMeasure.R` and `RandIndex.R`: process the measures listed above, as well as their modified versions. 
-* `Example.R`: illustrates how to process the different measures, by applying them to
-			   several data, including the example from my paper. The `Example-out-xxxxx.txt` files correspond to the results you should obtain
-			   when executing this script. 
+Folder `detection` contains the scripts used to apply community detection methods. Some of them are a part of the `igraph` library, but some others are separate pieces of softwares. The source code of the latter is located in their own folder, in folder `detection/xxxxx` (where `xxxxx` is the name of the considered algorithm).
 
 
 # Installation
-You just need to install `R` and the required packages:
+You first need to install `R` and the required packages:
 
 1. Install the [`R` language](https://www.r-project.org/)
 2. Install the following R packages:
@@ -57,41 +34,35 @@ You just need to install `R` and the required packages:
 3. Download this project from GitHub and unzip.
 4. Launch `R`, setup the working directory with `setwd` so that it points at the root of this project. 
 
+Then, if you want to use some of the external community detection algorithms, you need to compile them. See the instructions in their dedicated folders (itself in folder `detection`).
+
 
 # Use
 In order to process the measures:
 
 1. Open the `R` console.
 2. Set the project root as the working directory, using `setwd("<my directory>")`.
-3. Launch the `Example.R` script, or just include one of the measure scripts (`NormalizedMutualInformation.R`, 
-   `PurityMeasure.R` and `RandIndex.R`) to use in your own source code.
-
-
-# Extension
-The example shows how to use the measures with the three types of weights proposed in the paper [L'15].
-However, the functions allow using any other scheme: you just need to process these topological weights
-first, then pass them to the selected function using its `topo.measure` parameter. 
+3. Launch the `Main.R` script to get an example of how the scripts can be used.
 
 
 # Dependencies
 * [`igraph`](http://igraph.org/r/) package: used to build and handle graphs.
-
-
-# Disclaimer
-This is not the exact version used in the paper [L'15], it is a reworked, cleaned and commented one.
-For instance, some of the functions I had originally implemented are now available in certain libraries, 
-so I decided to remove them from my scripts and use these libraries instead. 
-I was careful when updating my source code, and I tested it. But of course, because of these changes, 
-it is always possible that I introduced some bugs. Please, if you find one, contact me at the above
-email address or post an issue on the GitHub page. 
+* [`infomap`](http://www.tp.umu.se/~rosvall/code.html): Infomap community detection tool.
+* [`conf-infomap`](http://www.tp.umu.se/~rosvall/code.htmle): significance-based variant of Infomap.
+* [`infohiermap`](http://www.tp.umu.se/~rosvall/code.html): hierarchical variant of Infomap.
+* [`infomod`](http://www.tp.umu.se/~rosvall/code.html): Infomod community detection tool.
 
 
 # References
  * **[L'15]** V. Labatut, *Generalised measures for the evaluation of community detection methods*, International Journal of Social Network Mining (IJSNM), 2(1):44-63, 2015. [doi: 10.1504/IJSNM.2015.069776](https://doi.org/10.1504/IJSNM.2015.069776) - [⟨hal-00802923⟩](https://hal.archives-ouvertes.fr/hal-00802923)
  * **[OLC'13]** G. K. Orman, V. Labatut & H. Cherifi, *Towards realistic artificial benchmark for community detection algorithms evaluation*. International Journal of Web Based Communities (IJWBC), 9(3):349-370, 2013. [doi: 10.1504/IJWBC.2013.054908](https://doi.org/10.1504/IJWBC.2013.054908) - [⟨hal-00840261⟩](https://hal.archives-ouvertes.fr/hal-00840261)
- * **[OLC'12]** G. K. Orman, V. Labatut & H. Cherifi. *Comparative Evaluation of Community Detection Algorithms : A Topological Approach*. Journal of Statistical Mechanics : Theory and Experiment, 2012(08):P08001, 2012. [doi: 10.1088/1742-5468/2012/08/P08001](https://doi.org/10.1088/1742-5468/2012/08/P08001) - [⟨hal-00710659⟩](https://hal.archives-ouvertes.fr/hal-00710659)
- * **[OLC'11]** G. K. Orman, V. Labatut & H. Cherifi. *On Accuracy of Community Structure Discovery Algorithms*. Journal of Convergence Information Technology, 6(11):283-292, 2011. [doi: 10.4156/jcit.vol6.issue11.32](https://doi.org/10.4156/jcit.vol6.issue11.32) - [⟨hal-00653084⟩](https://hal.archives-ouvertes.fr/hal-00653084)
- * **[]** G. K. Orman, V. Labatut & H. Cherifi. *An Empirical Study of the Relation Between Community Structure and Transitivity*. 3rd Workshop on Complex Networks (CompleNet). Studies in Computational Intelligence, 424:99-110, Springer, 2013. [doi: 10.1007/978-3-642-30287-9_11](https://doi.org/10.1007/978-3-642-30287-9_11) - [⟨hal-00717707⟩](https://hal.archives-ouvertes.fr/hal-00717707) 
+ * **[OLC'12a]** G. K. Orman, V. Labatut & H. Cherifi. *Comparative Evaluation of Community Detection Algorithms : A Topological Approach*. Journal of Statistical Mechanics : Theory and Experiment, 2012(08):P08001, 2012. [doi: 10.1088/1742-5468/2012/08/P08001](https://doi.org/10.1088/1742-5468/2012/08/P08001) - [⟨hal-00710659⟩](https://hal.archives-ouvertes.fr/hal-00710659)
+ * **[OLC'12b]** G. K. Orman, V. Labatut & H. Cherifi. *An Empirical Study of the Relation Between Community Structure and Transitivity*. 3rd Workshop on Complex Networks (CompleNet 2012). Studies in Computational Intelligence, 424:99-110, Springer, 2013. [doi: 10.1007/978-3-642-30287-9_11](https://doi.org/10.1007/978-3-642-30287-9_11) - [⟨hal-00717707⟩](https://hal.archives-ouvertes.fr/hal-00717707) 
+ * **[L'12]** V. Labatut. *Une nouvelle mesure pour l’évaluation des méthodes de détection de communautés*. 3ème Conférence sur les modèles et l’analyse de réseaux : approches mathématiques et informatiques (MARAMI). 12p, 2012. [⟨hal-00743888⟩](https://hal.archives-ouvertes.fr/hal-00743888)
+ * **[OLC'11a]** G. K. Orman, V. Labatut & H. Cherifi. *On Accuracy of Community Structure Discovery Algorithms*. Journal of Convergence Information Technology, 6(11):283-292, 2011. [doi: 10.4156/jcit.vol6.issue11.32](https://doi.org/10.4156/jcit.vol6.issue11.32) - [⟨hal-00653084⟩](https://hal.archives-ouvertes.fr/hal-00653084)
+ * **[OLC'11b]** G. K. Orman, V. Labatut & H. Cherifi. *Qualitative Comparison of Community Detection Algorithms*. 1st International Conference on Digital Information and Communication Technology and its Applications (DICTAP). Communications in Computer and Information Science, Springer, 167:265-279, 2011. [doi: 10.1007/978-3-642-22027-2_23](https://doi.org/10.1007/978-3-642-22027-2_23) - [⟨hal-00611385⟩](https://hal.archives-ouvertes.fr/hal-00611385)
+ * **[OLC'11c]** G. K. Orman, V. Labatut & H. Cherifi. *Relation entre transitivité et structure de communauté dans les réseaux complexes*. 2ème Journée thématique Fouille de grands graphes (JFGG). 4p, 2011. [⟨hal-01112256⟩](https://hal.archives-ouvertes.fr/hal-01112256)
+ * **[OL'10]** G. K. Orman & V. Labatut. *The Effect of Network Realism on Community Detection Algorithms*. International Conference on Advances in Social Networks Analysis and Mining (ASONAM). 301-305, 2010. [doi: 10.1109/ASONAM.2010.70](https://doi.org/10.1109/ASONAM.2010.70) - [⟨hal-00633641⟩](https://hal.archives-ouvertes.fr/hal-00633641)
+ * **[OL'09a]** G. K. Orman & V. Labatut. *A Comparison of Community Detection Algorithms on Artificial Networks*. 12th International Conference on Discovery Science (DS). Lecture Notes in Artificial Intelligence, Springer, 5808:242-256, 2009. [doi: 10.1007/978-3-642-04747-3_20](https://doi.org/10.1007/978-3-642-04747-3_20) - [⟨hal-00633640⟩](https://hal.archives-ouvertes.fr/hal-00633640)
+ * **[OL'09b]** G. K. Orman & V. Labatut. *Relative Evaluation of Partition Algorithms for Complex Networks*. 1st International Conference on Networked Digital Technologies (NDT). 20-25, 2009. [doi: 10.1109/NDT.2009.5272078](https://doi.org/10.1109/NDT.2009.5272078) - [⟨hal-00633624⟩](https://hal.archives-ouvertes.fr/hal-00633624)
  
- 
-
